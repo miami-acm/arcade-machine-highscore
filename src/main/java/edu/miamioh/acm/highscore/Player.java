@@ -19,7 +19,7 @@ public class Player {
 	 * Search the Player database and if a Player with a matching name exists,
 	 * return that Player, otherwise create it and save to the database.
 	 *
-	 * @param name The name to search for in the database
+	 * @param id The ID number to use for looking up a Player
 	 */
 	public static Player getOrCreate(int id) {
 		return new Player(0, "Nate");
