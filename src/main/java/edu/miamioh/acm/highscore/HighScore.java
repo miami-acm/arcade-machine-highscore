@@ -25,4 +25,15 @@ public class HighScore {
 		this.game = g;
 		this.player = p;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			if (o instanceof HighScore) {
+				HighScore h = (HighScore)o;
+				return h.id == id;
+			}
+		}
+		return false;
+	}
 }

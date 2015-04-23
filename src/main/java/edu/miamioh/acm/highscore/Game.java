@@ -16,4 +16,15 @@ public class Game {
 		this.name = name;
 		this.id = id;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			if (o instanceof Game) {
+				Game g = (Game)o;
+				return g.id == id;
+			}
+		}
+		return false;
+	}
 }
