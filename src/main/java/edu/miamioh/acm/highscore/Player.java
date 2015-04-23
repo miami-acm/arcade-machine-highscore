@@ -27,4 +27,13 @@ public class Player {
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Player [id=%d name='%s']", id, name);
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

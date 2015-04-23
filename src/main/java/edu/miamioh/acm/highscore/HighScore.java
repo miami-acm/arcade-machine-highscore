@@ -36,4 +36,9 @@ public class HighScore {
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("HighScore [player='%s' score=%d game='%s']", player.getName(), score, game.getName());
+	}
 }

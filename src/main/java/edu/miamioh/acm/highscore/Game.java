@@ -27,4 +27,14 @@ public class Game {
 		}
 		return false;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Game [id=%d name='%s']", id, name);
+	}
+	
 }
