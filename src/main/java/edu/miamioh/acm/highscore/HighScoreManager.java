@@ -1,10 +1,15 @@
 package edu.miamioh.acm.highscore;
 
 import java.util.ArrayList;
+import java.sql.*;
 
 public class HighScoreManager {
+	private static final String DEFAULT_DB_NAME = "games.db";
+	
 	private Game game;
 	private ArrayList<HighScore> scores;
+	private ArrayList<Player> players;
+	private Connection connection;
 
 	/**
 	 * Construct a new HighScoreManager storing the scores for the given Game.
@@ -13,8 +18,25 @@ public class HighScoreManager {
 	 *            the Game object to store the scores for
 	 */
 	public HighScoreManager(Game g) {
+		this(g, DEFAULT_DB_NAME);
+	}
+	
+	public HighScoreManager(Game g, String dbName) {
+		initialize(g, dbName);
+	}
+
+	private void initialize(Game g, String dbName) {
 		game = g;
 		scores = new ArrayList<HighScore>();
+		players = new ArrayList<Player>();
+
+		try {
+			Class.forName("org.sqlite.JDBC");
+			connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
 	}
 
 	/**
@@ -24,9 +46,12 @@ public class HighScoreManager {
 	 * @param name
 	 *            the name of the game to lookup in the database
 	 */
-	public HighScoreManager(String name) {
-		game = getOrCreateGame(name);
-		scores = new ArrayList<HighScore>();
+	public HighScoreManager(String gameName) {
+		this(gameName, DEFAULT_DB_NAME);
+	}
+	
+	public HighScoreManager(String gameName, String dbName) {
+		initialize(getOrCreateGame(gameName), dbName);
 	}
 
 	/**
@@ -50,7 +75,9 @@ public class HighScoreManager {
 	 *            The ID number of the Player
 	 */
 	public Player getOrCreatePlayer(int id) {
-		return new Player(id, "Nate");
+		Player p = new Player(id, "Nate");
+		players.add(p);
+		return p;
 	}
 
 	/**
@@ -72,5 +99,9 @@ public class HighScoreManager {
 	 */
 	public ArrayList<HighScore> getHighScores() {
 		return scores;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 }
