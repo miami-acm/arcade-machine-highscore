@@ -1,6 +1,6 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
 
-packageName = 'Arcade Machine High Score API'
 version = '1.0.0'
 
 repositories {
@@ -9,7 +9,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': packageName,
+        attributes 'Implementation-Title': '',
                    'Implementation-Version': version
     }
     baseName = project.name
@@ -17,7 +17,7 @@ jar {
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': packageName,
+        attributes 'Implementation-Title': '',
             'Implementation-Version': version
     }
     baseName = project.name + '-all'
