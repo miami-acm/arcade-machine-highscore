@@ -1,0 +1,47 @@
+apply plugin: 'java'
+
+packageName = 'Arcade Machine High Score API'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': packageName,
+                   'Implementation-Version': version
+    }
+    baseName = project.name
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': packageName,
+            'Implementation-Version': version
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+test {
+    beforeTest { descriptor ->
+       logger.lifecycle("Running test: " + descriptor)
+    }
+
+    testLogging.showStandardStreams = true
+
+    onOutput { descriptor, event ->
+       logger.lifecycle("Test: " + descriptor + " produced standard out/err: " +
+event.message )
+    }
+}
+
+dependencies {
+    testCompile("junit:junit:4.12")
+}
