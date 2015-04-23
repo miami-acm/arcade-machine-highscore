@@ -28,7 +28,7 @@ public class HighScore {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
+		if (o != null) {
 			if (o instanceof HighScore) {
 				HighScore h = (HighScore)o;
 				return h.id == id;

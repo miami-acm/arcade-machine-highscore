@@ -19,7 +19,7 @@ public class Player {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
+		if (o != null) {
 			if (o instanceof Player) {
 				Player p = (Player) o;
 				return p.id == id;
